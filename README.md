@@ -1,11 +1,11 @@
 # CakeApp
 
 **Twórcy:**
-Michał Kuta, 80708
-Patryk Przybyszewski, 79475
-Tomasz Borzejewicz, 77522
-Pryk Łukasz, 77930
-Jakub Pala, 00000
+* Michał Kuta, 80708
+* Patryk Przybyszewski, 79475
+* Tomasz Borzejewicz, 77522
+* Pryk Łukasz, 77930
+* Jakub Pala, 00000
 
 ## Opis projektu:
 
