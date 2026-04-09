@@ -1,16 +1,23 @@
 .app-container {
-  max-width: 1200px;
+  max-width: var(--container-width);
   margin: 0 auto;
   padding: 2rem;
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 88px);
 }
 
 .success-wrapper {
+  max-width: 760px;
+  margin: 2rem auto 0;
+  padding: 2.5rem;
   text-align: center;
-  background: linear-gradient(135deg, #FFF8DC, white);
-  border-radius: 12px;
-  padding: 3rem;
-  margin-top: 2rem;
+  background: linear-gradient(
+    180deg,
+    var(--color-surface-soft) 0%,
+    var(--color-surface) 100%
+  );
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
 }
 
 .success-icon {
@@ -19,35 +26,39 @@
 }
 
 .success-message {
-  font-size: 1.5rem;
-  color: #27ae60;
-  font-weight: bold;
-  margin-bottom: 1rem;
+  font-size: 1.9rem;
+  color: var(--color-success);
+  font-weight: 800;
+  margin-bottom: 0.75rem;
 }
 
 .success-subtext {
-  color: #666;
-  margin-bottom: 1.5rem;
+  color: var(--color-text-muted);
+  margin-bottom: 1.75rem;
+  line-height: 1.6;
 }
 
 .order-details {
-  background: white;
+  background: var(--color-surface);
   padding: 1.5rem;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   margin-top: 1.5rem;
   text-align: left;
+  border: 1px solid var(--color-border);
 }
 
 .order-details h3 {
-  color: #8B4513;
+  color: var(--color-primary-dark);
   margin-bottom: 1rem;
-  border-bottom: 2px solid #D2691E;
-  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-primary-light);
+  padding-bottom: 0.75rem;
+  font-size: 1.15rem;
 }
 
 .order-detail-item {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #eee;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
 }
 
 .order-detail-item:last-child {
@@ -55,18 +66,32 @@
 }
 
 .order-product-row {
-  padding: 0.3rem 0;
+  padding: 0.35rem 0;
+  color: var(--color-text-muted);
 }
 
 .order-total-row {
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   font-size: 1.2rem;
-  font-weight: bold;
-  color: #D2691E;
+  font-weight: 800;
+  color: var(--color-primary);
 }
 
 @media (max-width: 768px) {
   .app-container {
+    padding: 1rem;
+  }
+
+  .success-wrapper {
+    padding: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .success-message {
+    font-size: 1.5rem;
+  }
+
+  .order-details {
     padding: 1rem;
   }
 }
