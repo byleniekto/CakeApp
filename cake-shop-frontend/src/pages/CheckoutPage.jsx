@@ -1,9 +1,11 @@
-import React from 'react';
-import { useCart } from '../context/CartContext';
-import OrderForm from '../components/OrderForm/OrderForm';
-import '../styles/pages.css';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+import OrderForm from "../components/OrderForm/OrderForm";
+import "../styles/pages.css";
 
-const CheckoutPage = ({ onSuccess, onBack }) => {
+const CheckoutPage = () => {
+  const navigate = useNavigate();
   const { cart, getCartTotal, clearCart } = useCart();
 
   const handleSubmit = (formData) => {
@@ -19,19 +21,18 @@ const CheckoutPage = ({ onSuccess, onBack }) => {
         price: item.price,
       })),
       total: getCartTotal(),
-      date: new Date().toLocaleDateString('pl-PL'),
+      date: new Date().toLocaleDateString("pl-PL"),
     };
 
-    // tutaj później można wysłać orderData do backendu
-    console.log('Zamówienie:', orderData);
+    console.log("Zamówienie:", orderData);
     clearCart();
-    onSuccess(orderData);
+    navigate("/success", { state: { orderData } });
   };
 
   return (
     <div>
       <h2 className="page-title">Finalizuj zamówienie</h2>
-      <OrderForm onSubmit={handleSubmit} onCancel={onBack} />
+      <OrderForm onSubmit={handleSubmit} onCancel={() => navigate("/cart")} />
     </div>
   );
 };

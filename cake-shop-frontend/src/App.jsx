@@ -1,108 +1,50 @@
-import React, { useState } from 'react';
-import { CartProvider } from './context/CartContext';
-import Navigation from './components/Navigation/Navigation';
-import ProductsPage from './pages/ProductsPage';
-import CartPage from './pages/CartPage';
-import CheckoutPage from './pages/CheckoutPage';
-import './App.css';
+import React from "react";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { CartProvider } from "./context/CartContext";
+import Navigation from "./components/Navigation/Navigation";
+import ProductsPage from "./pages/ProductsPage";
+import CartPage from "./pages/CartPage";
+import CheckoutPage from "./pages/CheckoutPage";
+import SuccessPage from "./pages/SuccessPage";
+import "./App.css";
 
-function App() {
-  const [currentPage, setCurrentPage] = useState('products');
-  const [orderData, setOrderData] = useState(null);
-
-  const handleShowProducts = () => setCurrentPage('products');
-  const handleShowCart = () => setCurrentPage('cart');
-  const handleCheckout = () => setCurrentPage('checkout');
-  const handleOrderSuccess = (data) => {
-    setOrderData(data);
-    setCurrentPage('success');
-  };
+function AppRoutes() {
+  const navigate = useNavigate();
 
   return (
-    <CartProvider>
+    <>
       <Navigation
-        onShowProducts={handleShowProducts}
-        onShowCart={handleShowCart}
+        onShowProducts={() => navigate("/")}
+        onShowCart={() => navigate("/cart")}
       />
+
       <div className="app-container">
-        {currentPage === 'products' && (
-          <ProductsPage />
-        )}
-
-        {currentPage === 'cart' && (
-          <CartPage
-            onCheckout={handleCheckout}
-            onContinueShopping={handleShowProducts}
+        <Routes>
+          <Route path="/" element={<ProductsPage />} />
+          <Route
+            path="/cart"
+            element={
+              <CartPage
+                onCheckout={() => navigate("/checkout")}
+                onContinueShopping={() => navigate("/")}
+              />
+            }
           />
-        )}
-
-        {currentPage === 'checkout' && (
-          <CheckoutPage
-            onSuccess={handleOrderSuccess}
-            onBack={handleShowCart}
-          />
-        )}
-
-        {currentPage === 'success' && (
-          <SuccessPage
-            orderData={orderData}
-            onNewOrder={handleShowProducts}
-          />
-        )}
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/success" element={<SuccessPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </div>
-    </CartProvider>
+    </>
   );
 }
 
-const SuccessPage = ({ orderData, onNewOrder }) => {
-  if (!orderData) return null;
-
+function App() {
   return (
-    <div className="success-wrapper">
-      <div className="success-icon">✅</div>
-      <div className="success-message">Zamówienie złożone!</div>
-      <p className="success-subtext">
-        Dziękujemy za Twoje zamówienie. Wkrótce się z Tobą skontaktujemy.
-      </p>
-      <div className="order-details">
-        <h3>Podsumowanie zamówienia</h3>
-        <div className="order-detail-item">
-          <strong>Data:</strong> {orderData.date}
-        </div>
-        <div className="order-detail-item">
-          <strong>Klient:</strong> {orderData.customerName}
-        </div>
-        <div className="order-detail-item">
-          <strong>Email:</strong> {orderData.customerEmail}
-        </div>
-        <div className="order-detail-item">
-          <strong>Telefon:</strong> {orderData.customerPhone}
-        </div>
-        <div className="order-detail-item">
-          <strong>Adres:</strong> {orderData.customerAddress}
-        </div>
-        {orderData.customerNotes && (
-          <div className="order-detail-item">
-            <strong>Uwagi:</strong> {orderData.customerNotes}
-          </div>
-        )}
-        <div className="order-detail-item">
-          <strong>Produkty:</strong>
-          {orderData.items.map((item) => (
-            <div key={item.id} className="order-product-row">
-              {item.name} × {item.quantity} = {item.price * item.quantity} PLN
-            </div>
-          ))}
-        </div>
-        <div className="order-total-row">
-          Razem: {orderData.total} PLN
-        </div>
-      </div>
-      <button className="btn btn-secondary" onClick={onNewOrder}>
-        Złóż nowe zamówienie
-      </button>
-    </div>
+    <CartProvider>
+      <AppRoutes />
+    </CartProvider>
   );
-};
+}
 
 export default App;
