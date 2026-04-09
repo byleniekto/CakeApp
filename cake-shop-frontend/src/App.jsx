@@ -1,11 +1,14 @@
 import React from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
+import { AuthProvider } from "./context/AuthContext";
 import Navigation from "./components/Navigation/Navigation";
 import ProductsPage from "./pages/ProductsPage";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import SuccessPage from "./pages/SuccessPage";
+import AuthPage from "./pages/AuthPage";
+import ProfilePage from "./pages/ProfilePage";
 import "./App.css";
 
 function AppRoutes() {
@@ -16,11 +19,14 @@ function AppRoutes() {
       <Navigation
         onShowProducts={() => navigate("/")}
         onShowCart={() => navigate("/cart")}
+        onShowAuth={() => navigate("/auth")}
+        onShowProfile={() => navigate("/profile")}
       />
 
       <div className="app-container">
         <Routes>
           <Route path="/" element={<ProductsPage />} />
+
           <Route
             path="/cart"
             element={
@@ -30,8 +36,11 @@ function AppRoutes() {
               />
             }
           />
+
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/success" element={<SuccessPage />} />
+          <Route path="/auth" element={<AuthPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
@@ -41,9 +50,11 @@ function AppRoutes() {
 
 function App() {
   return (
-    <CartProvider>
-      <AppRoutes />
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <AppRoutes />
+      </CartProvider>
+    </AuthProvider>
   );
 }
 

@@ -2,42 +2,71 @@
   background: white;
   border-radius: 12px;
   padding: 2rem;
-  max-width: 500px;
+  max-width: 560px;
   margin-top: 2rem;
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f0e2d6;
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color: #3E2723;
+  color: #3e2723;
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 0.8rem;
+  padding: 0.85rem 0.9rem;
   border: 2px solid #ddd;
   border-radius: 8px;
   font-size: 1rem;
   font-family: inherit;
+  background: #fffdfb;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #D2691E;
+  border-color: #d2691e;
   box-shadow: 0 0 0 3px rgba(210, 105, 30, 0.1);
 }
 
 .form-group textarea {
   resize: vertical;
   min-height: 100px;
+}
+
+.form-error {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  color: #c0392b;
+  font-weight: 600;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.form-actions .btn {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .order-form {
+    padding: 1.25rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
 }

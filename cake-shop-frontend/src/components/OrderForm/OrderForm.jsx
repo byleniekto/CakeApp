@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
-import './OrderForm.css';
+import React, { useEffect, useState } from "react";
+import "./OrderForm.css";
 
-const OrderForm = ({ onSubmit, onCancel }) => {
-  const [formData, setFormData] = useState({
-    customerName: '',
-    customerEmail: '',
-    customerPhone: '',
-    customerAddress: '',
-    customerNotes: '',
-  });
+const emptyForm = {
+  customerName: "",
+  customerEmail: "",
+  customerPhone: "",
+  customerAddress: "",
+  customerNotes: "",
+};
+
+const OrderForm = ({ onSubmit, onCancel, initialData = null }) => {
+  const [formData, setFormData] = useState(initialData || emptyForm);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    setFormData(initialData || emptyForm);
+  }, [initialData]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -19,69 +26,63 @@ const OrderForm = ({ onSubmit, onCancel }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (
       !formData.customerName ||
       !formData.customerEmail ||
       !formData.customerPhone ||
       !formData.customerAddress
     ) {
-      alert('Proszę wypełnić wszystkie wymagane pola!');
+      setError("Proszę wypełnić wszystkie wymagane pola.");
       return;
     }
+
+    setError("");
     onSubmit(formData);
   };
 
   return (
     <form className="order-form" onSubmit={handleSubmit}>
       <div className="form-group">
-        <label htmlFor="customerName">Imię i nazwisko *</label>
+        <label htmlFor="customerName">Imię i nazwisko</label>
         <input
-          type="text"
           id="customerName"
           name="customerName"
+          type="text"
           value={formData.customerName}
           onChange={handleChange}
-          placeholder="Jan Kowalski"
-          required
         />
       </div>
 
       <div className="form-group">
-        <label htmlFor="customerEmail">Email *</label>
+        <label htmlFor="customerEmail">Adres e-mail</label>
         <input
-          type="email"
           id="customerEmail"
           name="customerEmail"
+          type="email"
           value={formData.customerEmail}
           onChange={handleChange}
-          placeholder="jan@example.com"
-          required
         />
       </div>
 
       <div className="form-group">
-        <label htmlFor="customerPhone">Telefon *</label>
+        <label htmlFor="customerPhone">Telefon</label>
         <input
-          type="tel"
           id="customerPhone"
           name="customerPhone"
+          type="text"
           value={formData.customerPhone}
           onChange={handleChange}
-          placeholder="123-456-789"
-          required
         />
       </div>
 
       <div className="form-group">
-        <label htmlFor="customerAddress">Adres dostawy *</label>
-        <input
-          type="text"
+        <label htmlFor="customerAddress">Adres dostawy</label>
+        <textarea
           id="customerAddress"
           name="customerAddress"
           value={formData.customerAddress}
           onChange={handleChange}
-          placeholder="ul. Główna 1, 80-001 Gdańsk"
-          required
         />
       </div>
 
@@ -92,19 +93,17 @@ const OrderForm = ({ onSubmit, onCancel }) => {
           name="customerNotes"
           value={formData.customerNotes}
           onChange={handleChange}
-          placeholder="Np. bez cukru, data dostawy..."
         />
       </div>
 
-      <div className="checkout-buttons">
-        <button
-          type="button"
-          className="btn btn-secondary"
-          onClick={onCancel}
-        >
-          Wróć do koszyka
+      {error && <p className="form-error">{error}</p>}
+
+      <div className="form-actions">
+        <button type="button" className="btn btn-outline" onClick={onCancel}>
+          Wróć
         </button>
-        <button type="submit" className="btn btn-primary">
+
+        <button type="submit" className="btn btn-secondary">
           Złóż zamówienie
         </button>
       </div>

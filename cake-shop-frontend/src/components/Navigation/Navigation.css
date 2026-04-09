@@ -1,10 +1,10 @@
 nav.navbar {
-  background: linear-gradient(90deg, #8B4513, #D2691E);
+  background: linear-gradient(90deg, #8b4513, #d2691e);
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -20,11 +20,31 @@ nav.navbar {
   display: flex;
   gap: 1rem;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn-nav {
+  background: rgba(255, 255, 255, 0.14);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.btn-nav:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.btn-nav-accent {
+  background: #ffd700;
+  color: #3e2723;
+}
+
+.btn-nav-accent:hover {
+  background: #f3cb1f;
 }
 
 .cart-badge {
-  background: #FFD700;
-  color: #3E2723;
+  background: white;
+  color: #3e2723;
   border-radius: 50%;
   width: 28px;
   height: 28px;
@@ -44,5 +64,10 @@ nav.navbar {
 
   .navbar-title {
     font-size: 1.5rem;
+  }
+
+  .nav-buttons {
+    justify-content: center;
+    width: 100%;
   }
 }
