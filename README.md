@@ -5,7 +5,7 @@
 * Patryk Przybyszewski, 79475
 * Tomasz Borzejewicz, 77522
 * Pryk Łukasz, 77930
-* Jakub Pala, 00000
+* Jakub Pala, 79843
 
 ## Opis projektu:
 
