@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useCart } from '../../context/CartContext';
-import ConfirmModal from '../UI/ConfirmModal';
-import './Cart.css';
+import React, { useState } from "react";
+import { useCart } from "../../context/CartContext";
+import ConfirmModal from "../UI/ConfirmModal";
+import "./Cart.css";
 
 const CartItem = ({ item }) => {
   const { removeFromCart, updateQuantity } = useCart();
@@ -29,26 +29,26 @@ const CartItem = ({ item }) => {
   return (
     <>
       <div className="cart-item">
-        <div className="cart-item-info">
-          <span className="cart-item-name">
-            {item.emoji} {item.name}
-          </span>
-          <span className="cart-item-price">
-            {item.price} PLN / szt.
-          </span>
+        <div className="cart-item-details">
+          <div className="cart-item-name">{item.name}</div>
+          <div className="cart-item-price">{item.price} PLN / szt.</div>
         </div>
-        <div className="cart-item-actions">
+
+        <div className="cart-item-qty">
           <input
             type="number"
             min="1"
             value={item.quantity}
             onChange={handleQuantityChange}
-            className="cart-item-qty"
           />
-          <span className="cart-item-total">
+        </div>
+
+        <div className="cart-item-actions">
+          <div className="cart-item-total">
             {item.price * item.quantity} PLN
-          </span>
-          <button className="btn btn-danger" onClick={handleRemoveClick}>
+          </div>
+
+          <button className="btn-remove" onClick={handleRemoveClick}>
             Usuń
           </button>
         </div>
@@ -56,10 +56,7 @@ const CartItem = ({ item }) => {
 
       <ConfirmModal
         isOpen={showConfirmRemove}
-        title="Usunąć produkt?"
         message={`Czy na pewno chcesz usunąć "${item.name}" z koszyka?`}
-        confirmLabel="Usuń"
-        cancelLabel="Anuluj"
         onConfirm={handleConfirmRemove}
         onCancel={handleCancelRemove}
       />
